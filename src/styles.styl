@@ -1,0 +1,31 @@
+$cell-width = 2em
+$color-edit = #888
+
+body
+  font-family Helvetica, Arial, sans-serif
+  font-size 1.4em
+
+.square, .cell
+  float left
+  display inline-block
+  border 1px solid black
+  box-sizing border-box
+
+  &:nth-child(3n+1)
+    clear both
+
+.cell
+  width $cell-width
+  height $cell-width
+  line-height $cell-width
+  text-align center
+
+  input
+    display inline-block
+    width 100%
+    font-size 1.4rem
+    border 0
+    box-sizing border-box
+    text-align center
+    color $color-edit
+    outline 0

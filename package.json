@@ -1,0 +1,23 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --progress --host 0.0.0.0 --colors",
+    "build": "webpack -p --progress --colors",
+    "webpack": "webpack --progress --colors"
+  },
+  "author": "Amalia Viti",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "css-loader": "^0.15.6",
+    "style-loader": "^0.12.3",
+    "stylus-loader": "^1.2.1",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  }
+}
