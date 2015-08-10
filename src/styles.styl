@@ -1,4 +1,4 @@
-$cell-width     = 2em
+$cell-width     = calc((100vw - 6px) / 9)
 $color-hover    = #e5e5e5
 $color-edit     = #888
 $color-verified = #77ff94
@@ -6,9 +6,20 @@ $color-wrong    = #ff4444
 
 @import '../node_modules/nib'
 
+*
+  box-sizing border-box
+
 body
   font-family Helvetica, Arial, sans-serif
   font-size 1.4em
+  margin 0
+  padding 0
+
+#board
+  position absolute
+  margin 50px auto
+  box-sizing border-box
+  clearfix()
 
 .square, .cell
   float left
