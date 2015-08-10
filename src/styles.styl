@@ -1,5 +1,10 @@
-$cell-width = 2em
-$color-edit = #888
+$cell-width     = 2em
+$color-hover    = #e5e5e5
+$color-edit     = #888
+$color-verified = #77ff94
+$color-wrong    = #ff4444
+
+@import '../node_modules/nib'
 
 body
   font-family Helvetica, Arial, sans-serif
@@ -19,6 +24,18 @@ body
   height $cell-width
   line-height $cell-width
   text-align center
+  transition background 0.25s ease-in-out
+
+  &.wrong
+    background-color $color-wrong !important
+    input
+      color white
+
+  &.editable:hover
+    background-color $color-hover
+
+  &.verified
+    background-color $color-verified
 
   input
     display inline-block
@@ -27,5 +44,6 @@ body
     border 0
     box-sizing border-box
     text-align center
+    background-color transparent
     color $color-edit
     outline 0
