@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --progress --host 0.0.0.0 --colors",
     "build": "webpack -p --progress --colors",
     "webpack": "webpack --progress --colors",
-    "test": "webpack-dev-server 'mocha!./test.js'"
+    "test": "webpack-dev-server 'mocha!./test/index.js'"
   },
   "author": "Amalia Viti",
   "license": "MIT",

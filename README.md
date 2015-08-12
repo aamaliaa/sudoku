@@ -12,6 +12,27 @@
 1. Run `npm test`.
 2. Go to (http://localhost:8080) in your browser.
 
+## Files
+
+```
+.
+├── src/
+|   ├── js/
+|   |   └── index.js
+|   |   └── sudoku.js
+|   └── stylus/
+|       └── styles.styl
+├── test/
+|   └── index.js
+├── index.html
+├── bundle.js
+├── package.json
+├── README.md
+└── webpack.config.js
+```
+
+I'm using webpack to compile javascript (to `bundle.js`) and the stylus gets compiled to css and inserted into `index.html` automatically.
+
 ## Technologies Used
 
 ### Production

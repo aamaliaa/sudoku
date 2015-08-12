@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var should = require('should');
-var Sudoku = require('./src/sudoku');
+var Sudoku = require('../src/js/sudoku');
 
 describe('Sudoku', function () {
   var sudoku;
