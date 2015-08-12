@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --progress --host 0.0.0.0 --colors",
     "build": "webpack -p --progress --colors",
-    "webpack": "webpack --progress --colors"
+    "webpack": "webpack --progress --colors",
+    "test": "webpack-dev-server 'mocha!./test.js'"
   },
   "author": "Amalia Viti",
   "license": "MIT",
@@ -16,6 +17,9 @@
   },
   "devDependencies": {
     "css-loader": "^0.15.6",
+    "mocha": "^2.2.5",
+    "mocha-loader": "^0.7.1",
+    "should": "^7.0.3",
     "style-loader": "^0.12.3",
     "stylus-loader": "^1.2.1",
     "webpack": "^1.11.0",

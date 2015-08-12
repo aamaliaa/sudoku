@@ -40,8 +40,10 @@ var Sudoku = module.exports = function (boardId) {
     return $input;
   };
 
-  return this;
+  // render on construct
+  this.render();
 
+  return this;
 };
 
 Sudoku.prototype = {
@@ -122,7 +124,7 @@ Sudoku.prototype = {
    * @return int      cell value
    */
   getCellValue: function (row, col) {
-    return this.getCurrentGame[row][col];
+    return this.currentGame[row][col];
   },
 
   /**
@@ -136,16 +138,26 @@ Sudoku.prototype = {
   },
 
   /**
-   * gets the square location of a cell
-   * (there are 9, and each "square" contains 9 cells)
+   * gets the square index range of a cell
+   * (there are 9 squares, and each "square" contains 9 cells)
    * @param  int row  row index
    * @param  int col  column index
-   * @return object   object with square indexes (i.e. { row: 0, col: 0 })
+   * @return object   object with square index ranges
+   * (i.e. { row: { start: 0, end: 3 }, col: { start: 6, end: 9 });
    */
-  getSquare: function (row, col) {
+  getSquareRange: function (row, col) {
+    var r = Math.floor(row / 3) * 3;
+    var c = Math.floor(col / 3) * 3;
+
     return {
-      row: Math.floor(row / 3) * 3,
-      col: Math.floor(col / 3) * 3
+      row: {
+        start: r,
+        end: r + 3,
+      },
+      col: {
+        start: c,
+        end: c + 3
+      }
     };
   },
 
@@ -200,10 +212,10 @@ Sudoku.prototype = {
   checkSquare: function (inputVal, row, col) {
 
     var i, j;
-    var square = this.getSquare(row, col);
+    var square = this.getSquareRange(row, col);
 
-    for (i = square.row; i < square.row + 3; i++) {
-      for (j = square.col; j < square.col + 3; j++) {
+    for (i = square.row.start; i < square.row.end; i++) {
+      for (j = square.col.start; j < square.col.end; j++) {
         if (inputVal === this.currentGame[i][j]) {
           return false;
         }
