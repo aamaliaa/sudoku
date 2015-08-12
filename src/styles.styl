@@ -42,8 +42,10 @@ body
     input
       color white
 
-  &.editable:hover
-    background-color $color-hover
+  &.editable
+    color $color-edit
+    &:hover
+      background-color $color-hover
 
   &.verified
     background-color $color-verified
