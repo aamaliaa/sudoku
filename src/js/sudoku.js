@@ -100,8 +100,8 @@ Sudoku.prototype = {
         }
 
         $cell.addClass('cell').addClass(cellClass);
-        $cell.data('row', i);
-        $cell.data('col', j);
+        $cell.attr('data-row', i);
+        $cell.attr('data-col', j);
         squares[k][l].append($cell);
       }
     }
@@ -136,7 +136,13 @@ Sudoku.prototype = {
       self.checkInput(e.currentTarget);
     });
 
-    $('#reset').on('click', function (e) {
+    $('#check').on('click', function () {
+      self.checkAnswers();
+    });
+
+    $('#solve').on('click', function () { });
+
+    $('#reset').on('click', function () {
       self.reset();
     });
 
@@ -147,7 +153,7 @@ Sudoku.prototype = {
    */
   removeEventListeners: function () {
     $('.editable input').off('keyup');
-    $('#reset').off('click');
+    $('#check, #solve, #reset').off('click');
   },
 
   /**
@@ -301,6 +307,44 @@ Sudoku.prototype = {
    */
   checkAnswer: function (val, row, col) {
     return (val === this.gameSolution[row][col]);
+  },
+
+  /**
+   * checks user-inputted answers against solution board
+   * provides "hints"
+   */
+  checkAnswers: function () {
+    var r, c, answer, $cell;
+
+    for (r = 0; r < 9; r++) {
+      for (c = 0; c < 9; c++) {
+        answer = this.currentGame[r][c];
+
+        // only check if cell isn't blank and
+        // input has been made
+        if (
+          answer !== 0 &&
+          answer !== this.game[r][c]
+        ) {
+
+          $cell = $('.cell[data-row="' + r + '"][data-col="' + c + '"]');
+
+          // if correct, set to solved
+          if (this.checkAnswer(answer, r, c)) {
+
+            $cell.addClass('verified');
+
+          // if incorrect, set class
+          } else {
+
+            $cell.addClass('wrong');
+
+          }
+
+        }
+
+      }
+    }
   },
 
   /**
