@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var utils = require('./utils');
 
 var Sudoku = module.exports = function (boardId) {
 
@@ -32,6 +33,8 @@ var Sudoku = module.exports = function (boardId) {
 
   this.currentGame = null;
 
+  this.emptyBoard = utils.getEmptyBoard();
+
   this.createInput = function () {
     var $input = $(document.createElement('input'));
     $input.attr('type', 'text');
@@ -41,7 +44,7 @@ var Sudoku = module.exports = function (boardId) {
   };
 
   // render on construct
-  this.render();
+  this.init();
 
   return this;
 };
@@ -49,15 +52,28 @@ var Sudoku = module.exports = function (boardId) {
 Sudoku.prototype = {
 
   /**
-   * Renders board cells and inputs
+   * inits current game state,
+   * renders,
+   * sets up event listeners
+   */
+  init: function () {
+    // clone game to current game
+    this.setCurrentGame();
+
+    // renders UI
+    this.render();
+
+    // setup event listeners
+    this.addEventListeners();
+  },
+
+  /**
+   * renders board cells and inputs
    */
   render: function () {
     var i, j, k, l, $square, $cell, $input, value, cellClass;
     var $board = this.$board;
     var squares = [ [], [], [] ];
-
-    // clone game to current game
-    this.setCurrentGame();
 
     for (i = 0; i < 9; i++) {
       for (j = 0; j < 9; j++) {
@@ -93,28 +109,45 @@ Sudoku.prototype = {
     squares.forEach(function(el) {
       $board.append(el);
     });
-
-    // setup event listeners
-    this.setupEventListeners();
   },
 
   /**
    * clones game board to store state
    */
   setCurrentGame: function () {
-     this.currentGame = this.game.slice(0);
+    // this uses $.extend() to deep copy bc we don't want a reference
+    this.currentGame = $.extend(true, [], this.game.slice(0));
   },
 
   /**
-   * sets up input event listeners
+   * sets current game to empty game
    */
-  setupEventListeners: function () {
+  clearCurrentGame: function () {
+    this.currentGame = this.emptyBoard.slice(0);
+  },
+
+  /**
+   * adds UI event listeners
+   */
+  addEventListeners: function () {
     var self = this;
 
     $('.editable input').on('keyup', function (e) {
       self.checkInput(e.currentTarget);
     });
 
+    $('#reset').on('click', function (e) {
+      self.reset();
+    });
+
+  },
+
+  /**
+   * removes UI event listeners
+   */
+  removeEventListeners: function () {
+    $('.editable input').off('keyup');
+    $('#reset').off('click');
   },
 
   /**
@@ -284,6 +317,23 @@ Sudoku.prototype = {
           .removeClass('wrong')
           .dequeue();
       });
+  },
+
+  /**
+   * resets board
+   */
+  reset: function () {
+    // clear html
+    this.$board.html('');
+
+    // clear current game
+    this.clearCurrentGame();
+
+    // remove event listeners
+    this.removeEventListeners();
+
+    // init
+    this.init();
   }
 
 };
