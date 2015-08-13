@@ -1,10 +1,6 @@
-$cell-width     = calc((100vw - 6px) / 9)
-$color-hover    = #e5e5e5
-$color-edit     = #888
-$color-verified = #77ff94
-$color-wrong    = #ff4444
-
 @import '../../node_modules/nib'
+@import 'variables'
+@import 'mixins'
 
 *
   box-sizing border-box
@@ -17,25 +13,34 @@ body
 
 #board
   position absolute
-  margin 50px auto
-  box-sizing border-box
+  margin 0 auto
+  top 0
+  right 0
+  bottom 0
+  left 0
   clearfix()
+
+  @media (max-width: 600px)
+    width 100vmin
+  @media (min-width: 601px)
+    width 85vmin
 
 .square, .cell
   float left
   display inline-block
   border 1px solid black
-  box-sizing border-box
 
   &:nth-child(3n+1)
     clear both
 
 .cell
-  width $cell-width
-  height $cell-width
-  line-height $cell-width
   text-align center
   transition background 0.25s ease-in-out
+
+  @media (max-width: 600px)
+    cell-dimensions(100vmin)
+  @media (min-width: 601px)
+    cell-dimensions(85vmin)
 
   &.wrong
     background-color $color-wrong !important
@@ -55,7 +60,6 @@ body
     width 100%
     font-size 1.4rem
     border 0
-    box-sizing border-box
     text-align center
     background-color transparent
     color $color-edit
