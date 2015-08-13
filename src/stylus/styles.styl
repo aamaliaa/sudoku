@@ -6,12 +6,21 @@
   box-sizing border-box
 
 body
-  font-family Helvetica, Arial, sans-serif
-  font-size 1.4em
   margin 0
   padding 0
+  font-family Helvetica, Arial, sans-serif
+  font-size 1.4em
+  background-color $color-bg
+  color $color-text
 
-#board
+.btn
+  button()
+  &.btn-blue
+    background-color $color-blue
+  &.btn-red
+    background-color $color-red
+
+#sudoku
   position absolute
   margin 0 auto
   top 0
@@ -24,6 +33,9 @@ body
     width 100vmin
   @media (min-width: 601px)
     width 85vmin
+
+#board
+  width 100%
 
 .square, .cell
   float left
@@ -64,3 +76,19 @@ body
     background-color transparent
     color $color-edit
     outline 0
+
+.controls
+  display flex
+  margin 0
+  padding 10px 0
+  height 65px
+  width 100%
+  flex-direction row
+  flex-wrap nowrap
+
+  .btn
+    margin-right 20px
+    flex-grow 1
+
+    &:last-child
+      margin-right 0

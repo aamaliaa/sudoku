@@ -7,7 +7,7 @@ describe('Sudoku', function () {
 
   beforeEach(function (done) {
     // initialize html
-    $('#board').css('display', 'none');
+    $('#sudoku').css('display', 'none');
     $('#board').html('');
 
     // init board
