@@ -31,15 +31,16 @@
 └── webpack.config.js
 ```
 
-I'm using webpack to compile javascript (to `bundle.js`) and the stylus gets compiled to css and inserted into `index.html` automatically.
+I'm using webpack to compile javascript (to `bundle.js`) and to compile and insert the stylus code into `index.html`.
 
 ## Technologies Used
 
 ### Production
-* jQuery
+* [jQuery](https://jquery.com/) - js library
 
 ### Development
-* Webpack (for compiling javascript, stylus)
-* Node.js/NPM
-* Stylus
-* Mocha/Should.js
+* [Webpack](http://webpack.github.io/) - compiling/bundling javascript, stylus
+* [Node.js](https://nodejs.org/) - uses npm to manage app dependencies, build process (node package manager)
+* [Stylus](https://learnboost.github.io/stylus/) - CSS preprocessor
+* [Nib](http://tj.github.io/nib/) - additional mixins and automatic prefixes for browser support
+* [Mocha](http://mochajs.org/) and [Should.js](https://shouldjs.github.io/) - testing
