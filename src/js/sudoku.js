@@ -34,8 +34,6 @@ var Sudoku = module.exports = function (mountNode) {
 
   this.currentGame = null;
 
-  this.emptyBoard = utils.getEmptyBoard();
-
   // render on construct
   this.init();
 
@@ -51,7 +49,7 @@ Sudoku.prototype = {
    */
   init: function () {
     // clone game to current game
-    this.setCurrentGame();
+    this.resetCurrentGame();
 
     // renders UI and board
     this.render();
@@ -118,16 +116,9 @@ Sudoku.prototype = {
   /**
    * clones game board to store state
    */
-  setCurrentGame: function () {
+  resetCurrentGame: function () {
     // this uses $.extend() to deep copy bc we don't want a reference
     this.currentGame = $.extend(true, [], this.game.slice(0));
-  },
-
-  /**
-   * sets current game to empty game
-   */
-  clearCurrentGame: function () {
-    this.currentGame = this.emptyBoard.slice(0);
   },
 
   /**
@@ -155,7 +146,7 @@ Sudoku.prototype = {
           break;
 
         case 'reset':
-          self.clearCurrentGame();
+          self.resetCurrentGame();
           break;
 
       }
@@ -173,9 +164,9 @@ Sudoku.prototype = {
 
   /**
    * gets cell value from current game board
-   * @param  int row  row index
-   * @param  int col  column index
-   * @return int      cell value
+   * @param  {int} row  row index
+   * @param  {int} col  column index
+   * @return {int}      cell value
    */
   getCellValue: function (row, col) {
     return this.currentGame[row][col];
@@ -183,9 +174,9 @@ Sudoku.prototype = {
 
   /**
    * sets cell value on current game board
-   * @param int inputVal  input value
-   * @param int row       row index
-   * @param int col       column index
+   * @param {int} inputVal  input value
+   * @param {int} row       row index
+   * @param {int} col       column index
    */
   setCellValue: function (inputVal, row, col) {
     this.currentGame[row][col] = inputVal;
@@ -194,9 +185,9 @@ Sudoku.prototype = {
   /**
    * gets the square index range of a cell
    * (there are 9 squares, and each "square" contains 9 cells)
-   * @param  int row  row index
-   * @param  int col  column index
-   * @return object   object with square index ranges
+   * @param  {int} row  row index
+   * @param  {int} col  column index
+   * @return {object}   object with square index ranges
    * (i.e. { row: { start: 0, end: 3 }, col: { start: 6, end: 9 });
    */
   getSquareRange: function (row, col) {
@@ -218,9 +209,9 @@ Sudoku.prototype = {
   /**
    * validates if value can be placed in a row
    * (i.e. if value does not already exist in the row)
-   * @param  int inputVal input value
-   * @param  int row      row index
-   * @return bool         true for valid, false for invalid
+   * @param  {int} inputVal input value
+   * @param  {int} row      row index
+   * @return {bool}         true for valid, false for invalid
    */
   checkRow: function (inputVal, row) {
 
@@ -238,9 +229,9 @@ Sudoku.prototype = {
 
   /**
    * validates if value can be placed in a column
-   * @param  int inputVal input value
-   * @param  int square   column index
-   * @return bool         true for valid, false for invalid
+   * @param  {int} inputVal input value
+   * @param  {int} square   column index
+   * @return {bool}         true for valid, false for invalid
    */
   checkColumn: function (inputVal, col) {
 
@@ -258,10 +249,10 @@ Sudoku.prototype = {
 
   /**
    * checks if value can be placed in a square
-   * @param  int inputVal input value
-   * @param  int row      row index
-   * @param  int col      column index
-   * @return bool         true for valid, false for invalid
+   * @param  {int} inputVal input value
+   * @param  {int} row      row index
+   * @param  {int} col      column index
+   * @return {bool}         true for valid, false for invalid
    */
   checkSquare: function (inputVal, row, col) {
 
@@ -282,7 +273,7 @@ Sudoku.prototype = {
 
   /**
    * checks validity of cell input
-   * @param  element target the changed input
+   * @param  {DOMNode} target the changed input
    */
   checkInput: function (target) {
     var val = parseInt(target.value, 10);
@@ -315,10 +306,10 @@ Sudoku.prototype = {
 
   /**
    * checks answer against game solution board
-   * @param  int val inputted value
-   * @param  int row row index
-   * @param  int col column index
-   * @return bool    true if correct, false if incorrect
+   * @param  {int} val inputted value
+   * @param  {int} row row index
+   * @param  {int} col column index
+   * @return {bool}    true if correct, false if incorrect
    */
   checkAnswer: function (val, row, col) {
     return (val === this.gameSolution[row][col]);
@@ -364,7 +355,7 @@ Sudoku.prototype = {
 
   /**
    * clears cell's input element
-   * @param  element $cell  cell element
+   * @param  {DOMNode} $cell  cell element
    */
   clearInput: function ($cell) {
     $cell

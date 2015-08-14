@@ -6,26 +6,8 @@ var $ = require('jquery');
 module.exports = {
 
   /**
-   * returns empty board
-   * @return array empty sudoku board of zeros
-   */
-  getEmptyBoard: function () {
-    var i, j;
-    var board = [];
-
-    for (i = 0; i < 9; i++) {
-      board[i] = [];
-      for (j = 0; j < 9; j++) {
-        board[i][j] = 0;
-      }
-    }
-
-    return board;
-  },
-
-  /**
    * creates input for board
-   * @return DOMNode
+   * @return {DOMNode}
    */
   createInput: function () {
     var $input = $(document.createElement('input'));
@@ -37,7 +19,7 @@ module.exports = {
 
   /**
    * creates buttons for UI
-   * @return DOMNode
+   * @return {DOMNode}
    */
   createButtons: function () {
     var $buttons = $('<div class="controls" />');
