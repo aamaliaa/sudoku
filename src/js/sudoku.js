@@ -3,7 +3,8 @@ var utils = require('./utils');
 
 var Sudoku = module.exports = function (mountNode) {
 
-  this.$board = $(mountNode);
+  this.$node = $(mountNode);
+  this.$board = null;
 
   // hard-coded game and solution
   // TODO a generator should generate these 2 arrays
@@ -52,7 +53,7 @@ Sudoku.prototype = {
     // clone game to current game
     this.setCurrentGame();
 
-    // renders UI
+    // renders UI and board
     this.render();
 
     // setup event listeners
@@ -67,40 +68,51 @@ Sudoku.prototype = {
     var $board = this.$board;
     var squares = [ [], [], [] ];
 
+    // append form
+    var $form = $('<form />').appendTo(this.$node);
+
+    // append board
+    var $board = $('<div id="board" />').appendTo($form);
+
+    // draw squares/cells
     for (i = 0; i < 9; i++) {
       for (j = 0; j < 9; j++) {
         k = Math.floor( i / 3);
         l = Math.floor( j / 3 );
 
         if (!squares[k][l]) {
-          squares[k][l] = $(document.createElement('div')).addClass('square');
+          squares[k][l] = $('<div class="square" />');
         }
 
         value = this.currentGame[i][j];
         $input = utils.createInput();
+        $cell = $('<div class="cell" />');
 
         if (value === 0) {
           // create empty input
-          $cell = $(document.createElement('div'));
           $cell.append($input);
           cellClass = 'editable';
         } else {
           // create static number
-          $cell = $(document.createElement('div'));
           $cell.text(value);
           cellClass = '';
         }
 
-        $cell.addClass('cell').addClass(cellClass);
+        $cell.addClass(cellClass);
         $cell.attr('data-row', i);
         $cell.attr('data-col', j);
         squares[k][l].append($cell);
       }
     }
 
+    // append squares to board
     squares.forEach(function(el) {
       $board.append(el);
     });
+
+    // appends buttons to form
+    $form.append(utils.createButtons);
+
   },
 
   /**
@@ -134,14 +146,16 @@ Sudoku.prototype = {
       switch(e.target.id) {
 
         case 'check':
+          e.preventDefault();
           self.checkAnswers();
           break;
 
         case 'solve':
+          e.preventDefault();
           break;
 
         case 'reset':
-          self.reset();
+          self.clearCurrentGame();
           break;
 
       }
@@ -362,23 +376,6 @@ Sudoku.prototype = {
           .removeClass('wrong')
           .dequeue();
       });
-  },
-
-  /**
-   * resets board
-   */
-  reset: function () {
-    // clear html
-    this.$board.html('');
-
-    // clear current game
-    this.clearCurrentGame();
-
-    // remove event listeners
-    this.removeEventListeners();
-
-    // init
-    this.init();
   }
 
 };

@@ -8,10 +8,10 @@ describe('Sudoku', function () {
   beforeEach(function (done) {
     // initialize html
     $('#sudoku').css('display', 'none');
-    $('#board').html('');
+    $('#sudoku').html('');
 
     // init board
-    sudoku = new Sudoku(document.getElementById('board'));
+    sudoku = new Sudoku(document.getElementById('sudoku'));
     done();
   });
 

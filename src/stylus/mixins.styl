@@ -10,9 +10,10 @@ button()
   border-radius 2px
   cursor pointer
   color $color-text
-  background-color $color-btn
   font-size 1em
   width 100%
 
+button-color(bg-color)
+  background-color bg-color
   &:hover
     background-color lighten(@background-color, 10)
