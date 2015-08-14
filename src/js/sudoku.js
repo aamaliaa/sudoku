@@ -1,9 +1,9 @@
 var $ = require('jquery');
 var utils = require('./utils');
 
-var Sudoku = module.exports = function (boardId) {
+var Sudoku = module.exports = function (mountNode) {
 
-  this.$board = $('#' + boardId);
+  this.$board = $(mountNode);
 
   // hard-coded game and solution
   // TODO a generator should generate these 2 arrays
@@ -34,14 +34,6 @@ var Sudoku = module.exports = function (boardId) {
   this.currentGame = null;
 
   this.emptyBoard = utils.getEmptyBoard();
-
-  this.createInput = function () {
-    var $input = $(document.createElement('input'));
-    $input.attr('type', 'text');
-    $input.attr('maxlength', '1');
-    $input.attr('pattern', '[0-9]*');
-    return $input;
-  };
 
   // render on construct
   this.init();
@@ -85,7 +77,7 @@ Sudoku.prototype = {
         }
 
         value = this.currentGame[i][j];
-        $input = this.createInput();
+        $input = utils.createInput();
 
         if (value === 0) {
           // create empty input
@@ -132,18 +124,27 @@ Sudoku.prototype = {
   addEventListeners: function () {
     var self = this;
 
-    $('.editable input').on('keyup', function (e) {
-      self.checkInput(e.currentTarget);
+    $('#board').on('keyup', function (e) {
+      e.stopPropagation();
+      self.checkInput(e.target);
     });
 
-    $('#check').on('click', function () {
-      self.checkAnswers();
-    });
+    $('.controls').on('click', function (e) {
+      e.stopPropagation();
+      switch(e.target.id) {
 
-    $('#solve').on('click', function () { });
+        case 'check':
+          self.checkAnswers();
+          break;
 
-    $('#reset').on('click', function () {
-      self.reset();
+        case 'solve':
+          break;
+
+        case 'reset':
+          self.reset();
+          break;
+
+      }
     });
 
   },
@@ -152,8 +153,8 @@ Sudoku.prototype = {
    * removes UI event listeners
    */
   removeEventListeners: function () {
-    $('.editable input').off('keyup');
-    $('#check, #solve, #reset').off('click');
+    $('#board').off('keyup');
+    $('.controls').off('click');
   },
 
   /**

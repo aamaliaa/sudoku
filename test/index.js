@@ -11,7 +11,7 @@ describe('Sudoku', function () {
     $('#board').html('');
 
     // init board
-    sudoku = new Sudoku('board');
+    sudoku = new Sudoku(document.getElementById('board'));
     done();
   });
 
