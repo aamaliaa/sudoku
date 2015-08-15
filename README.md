@@ -20,18 +20,22 @@
 |   ├── js/
 |   |   └── index.js
 |   |   └── sudoku.js
+|   |   └── utils.js
 |   └── stylus/
+|       └── mixins.styl
 |       └── styles.styl
+|       └── variables.styl
 ├── test/
 |   └── index.js
-├── index.html
+├── .gitignore
 ├── bundle.js
+├── index.html
 ├── package.json
 ├── README.md
 └── webpack.config.js
 ```
 
-I'm using webpack to compile javascript (to `bundle.js`) and to compile and insert the stylus code into `index.html`.
+I'm using webpack to compile all javascript into `bundle.js` and to compile stylus files into `src/css/main.css`.
 
 ## Technologies Used
 

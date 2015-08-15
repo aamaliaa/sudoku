@@ -47,7 +47,7 @@ body
 .square, .cell
   float left
   display inline-block
-  border 1px solid black
+  border 1px solid $color-text
 
   &:nth-child(3n+1)
     clear both
@@ -64,7 +64,7 @@ body
   &.wrong
     background-color $color-wrong !important
     input
-      color white
+      color $color-bg
 
   &.editable
     color $color-edit
@@ -111,18 +111,18 @@ body
   text-align center
 
   &:before, &:after
-  	content ""
-  	position relative
-  	display inline-block
-  	width 25%
-  	height 2px
-  	vertical-align middle
-  	background $color-text
+    content ""
+    position relative
+    display inline-block
+    width 25%
+    height 2px
+    vertical-align middle
+    background $color-text
 
   &:before
-  	left -.5em
-  	margin 0 0 0 -50%
+    left -.5em
+    margin 0 0 0 -50%
 
   &:after
-  	left .5em
-  	margin 0 -50% 0 0
+    left .5em
+    margin 0 -50% 0 0
