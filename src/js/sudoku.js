@@ -49,7 +49,7 @@ Sudoku.prototype = {
    */
   init: function () {
     // clone game to current game
-    this.resetCurrentGame();
+    this.resetGame();
 
     // renders UI and board
     this.render();
@@ -119,7 +119,7 @@ Sudoku.prototype = {
   /**
    * clones game board to store state
    */
-  resetCurrentGame: function () {
+  resetGame: function () {
     // this uses $.extend() to deep copy bc we don't want a reference
     this.currentGame = $.extend(true, [], this.game.slice(0));
 
@@ -146,15 +146,16 @@ Sudoku.prototype = {
 
         case 'check':
           e.preventDefault();
-          self.checkAnswers();
+          self.checkAnswers(false);
           break;
 
         case 'solve':
           e.preventDefault();
+          self.checkAnswers(true);
           break;
 
         case 'reset':
-          self.resetCurrentGame();
+          self.resetGame();
           break;
 
       }
@@ -325,34 +326,40 @@ Sudoku.prototype = {
 
   /**
    * checks user-inputted answers against solution board
-   * provides "hints"
+   * @param {bool} shouldSolve  true: reveals all answers; false: provides "hints"
    */
-  checkAnswers: function () {
+  checkAnswers: function (shouldSolve) {
     var r, c, answer, $cell;
 
     for (r = 0; r < 9; r++) {
       for (c = 0; c < 9; c++) {
-        answer = this.currentGame[r][c];
+        answer = this.getCellValue(r, c);
 
-        // only check if cell isn't blank and
-        // input has been made
+        // input has been made AND cell isn't blank
+        // OR
+        // should solve AND answer is incorrect
         if (
-          answer !== 0 &&
-          answer !== this.game[r][c]
+          ( answer !== this.game[r][c] && answer !== 0 ) ||
+          ( shouldSolve && answer !== this.gameSolution[r][c] )
         ) {
-
           $cell = $('.cell[data-row="' + r + '"][data-col="' + c + '"]');
 
-          // if correct, set to solved
-          if (this.checkAnswer(answer, r, c)) {
+          // if we're solving, set input values
+          if (shouldSolve) {
 
+            $cell
+              .removeClass('wrong')
+              .addClass('verified')
+              .find('input')
+              .val(this.gameSolution[r][c])
+
+          // if correct, set to solved
+          } else if (this.checkAnswer(answer, r, c)) {
             $cell.addClass('verified');
 
           // if incorrect, set class
           } else {
-
             $cell.addClass('wrong');
-
           }
 
         }
