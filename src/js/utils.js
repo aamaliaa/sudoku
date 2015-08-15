@@ -25,7 +25,7 @@ module.exports = {
     var $buttons = $('<div class="controls" />');
     $buttons.append('<button id="check" class="btn btn-blue">get hints</button>');
     $buttons.append('<button id="solve" class="btn">solve game</button>');
-    $buttons.append('<button id="reset" class="btn btn-red" type="reset">reset game</button>');
+    $buttons.append('<button id="reset" class="btn btn-maroon" type="reset">reset game</button>');
     return $buttons;
   }
 

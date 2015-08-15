@@ -109,7 +109,10 @@ Sudoku.prototype = {
     });
 
     // appends buttons to form
-    $form.append(utils.createButtons);
+    // appends title
+    $form
+      .append(utils.createButtons)
+      .append('<h1 class="title">SUDOKU</h1>');
 
   },
 
@@ -119,6 +122,11 @@ Sudoku.prototype = {
   resetCurrentGame: function () {
     // this uses $.extend() to deep copy bc we don't want a reference
     this.currentGame = $.extend(true, [], this.game.slice(0));
+
+    // re-inits cell classes
+    $('.cell')
+      .removeClass('wrong')
+      .removeClass('verified');
   },
 
   /**
