@@ -9,7 +9,7 @@ module.exports = {
   },
 
   output: {
-    filename: 'bundle.js',
+    filename: 'dist/bundle.js',
     path: __dirname,
     libraryTarget: 'umd'
   },
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('src/css/[name].css')
+    new ExtractTextPlugin('dist/[name].css')
   ]
 
 };

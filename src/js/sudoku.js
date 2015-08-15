@@ -4,7 +4,6 @@ var utils = require('./utils');
 var Sudoku = module.exports = function (mountNode) {
 
   this.$node = $(mountNode);
-  this.$board = null;
 
   // hard-coded game and solution
   // TODO a generator should generate these 2 arrays
@@ -62,8 +61,7 @@ Sudoku.prototype = {
    * renders board cells and inputs
    */
   render: function () {
-    var i, j, k, l, $square, $cell, $input, value, cellClass;
-    var $board = this.$board;
+    var i, j, k, l, $cell, $input, value, cellClass;
     var squares = [ [], [], [] ];
 
     // append form
