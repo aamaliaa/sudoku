@@ -345,6 +345,8 @@ Sudoku.prototype = {
           // if we're solving, set input values
           if (shouldSolve) {
 
+            this.setCellValue(this.gameSolution[r][c], r, c);
+
             $cell
               .removeClass('wrong')
               .addClass('verified')
