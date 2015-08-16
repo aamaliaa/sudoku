@@ -4,7 +4,7 @@ A web-based sudoku game.
 
 * simple, responsive UI designed for use on desktop, tablet, and mobile
   * only CSS (no javascript) is used for responsive layout
-  * the full sudoku board is always visible in viewport
+  * the full sudoku board is resized to fit in viewport
   * text inputs utilize the number keyboard on mobile
 * all sudoku logic and UI rendering is done via `src/js/sudoku.js`
 * uses 1-way binding to keep track of user inputted values
@@ -64,7 +64,7 @@ Webpack is used to compile all javascript into `dist/bundle.js` and to compile s
 * [Nib](http://tj.github.io/nib/) - automatic CSS prefixes for browser support
 
 ## TODO
-* rather than using hard-coded game and solution boards, create a generator/solver that randomly generates a solved sudoku game solution by using a [backtracking algorithm](https://en.wikipedia.org/wiki/Sudoku_solving_algorithms#Backtracking)
+* create a generator/solver that randomly generates a solved sudoku game solution by using a [backtracking algorithm](https://en.wikipedia.org/wiki/Sudoku_solving_algorithms#Backtracking) to replace hard-coded data
   * this would allow users to play different game boards
 * add UI tests
 * experiment with different UI patterns for input for mobile that won't take up as much space on the screen as the native keyboard
